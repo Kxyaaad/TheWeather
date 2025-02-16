@@ -1,3 +1,4 @@
+添加了 keyStore文件, password和 keyAlias在 budil.gradle中有，也可直接下载上传的releases安装
 根据当前位置获取未来几天的天气，并通过图表展示
 如果开启定位并且允许，会根据定位结构，请求当前地址的天气，并逆编码解析地址显示，否则默认显示成都的
 ![Screenshot_20250216_184608.png](screenshots/Screenshot_20250216_184608.png)

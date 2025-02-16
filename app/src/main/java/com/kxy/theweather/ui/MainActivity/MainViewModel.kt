@@ -1,6 +1,5 @@
 package com.kxy.theweather.ui.MainActivity
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.blankj.utilcode.util.StringUtils.getString
@@ -24,17 +23,18 @@ class MainViewModel : ViewModel() {
     val dayTempMap = mutableMapOf<String, ArrayList<Float>>() // 按天和时段分开存储温度
     var minY = 0f  //设置 Y 轴统一的最大和最小刻度
     var maxY = 0f
-    val times = arrayListOf<String>()
-    val temperatures = arrayListOf<Float>()
-    var latitude = "30.5728"
-    var longitude = "104.0668"
-    var currentTemp : Float = 0f
+    val times = arrayListOf<String>()  // 用于分时段的列表
+    val temperatures = arrayListOf<Float>()  // 用于分时段的列表
+    var currentTemp: Float = 0f
+
+    companion object {
+        var latitude = "30.5728" //成都的经纬度
+        var longitude = "104.0668"
+    }
 
 
     //请求天气数据
     fun requestTemp() {
-        this.dates.value?.clear()
-        this.dayTempMap.values.clear()
         this.times.clear()
         this.temperatures.clear()
 
@@ -44,7 +44,8 @@ class MainViewModel : ViewModel() {
         ).enqueue(object : Callback<TempDataModel> {
             override fun onResponse(call: Call<TempDataModel>, response: Response<TempDataModel>) {
                 if (response.isSuccessful) {
-                    val currentTime = TimeUtils.getNowString(TimeUtils.getSafeDateFormat("yyyy-MM-dd'T'HH:00"))
+                    val currentTime =
+                        TimeUtils.getNowString(TimeUtils.getSafeDateFormat("yyyy-MM-dd'T'HH:00"))
                     response.body()?.let { body ->
                         minY = body.hourly.temperature_2m.min() - 2f
                         maxY = body.hourly.temperature_2m.max() + 2f
@@ -56,7 +57,8 @@ class MainViewModel : ViewModel() {
                                 dayTempMap.getOrPut(date) { arrayListOf() }
                                     .add(body.hourly.temperature_2m[timeIndex])
                                 if (timeStr == currentTime) {
-                                    this@MainViewModel.currentTemp = body.hourly.temperature_2m[timeIndex]
+                                    this@MainViewModel.currentTemp =
+                                        body.hourly.temperature_2m[timeIndex]
                                 }
                             } catch (e: IndexOutOfBoundsException) {
                                 // 万一出现接口返回的温度数量和时间数量对不上的情况，捕获下异常

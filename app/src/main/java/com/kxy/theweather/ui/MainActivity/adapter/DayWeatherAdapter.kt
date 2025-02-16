@@ -13,8 +13,8 @@ class DayWeatherAdapter(private val mainViewModel: MainViewModel) :
     RecyclerView.Adapter<DayWeatherViewHolder>() {
 
     companion object {
-        const val LIST_TYPE_DAY = 0
-        const val LIST_TYPE_HOUR = 1
+        const val LIST_TYPE_DAY = 0 // 按天排列
+        const val LIST_TYPE_HOUR = 1 // 具体到时段的排列
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DayWeatherViewHolder {
@@ -44,8 +44,8 @@ class DayWeatherAdapter(private val mainViewModel: MainViewModel) :
                 maxTemp = maxTemp ?: 0f,
                 minTemp = minTemp ?: 0f
             )
-            val date = mainViewModel.dates.value?.get(position)
 
+            val date = mainViewModel.dates.value?.get(position)
             if (TimeUtils.getNowString().substring(0, 10) == date) {
                 holder.labelDate.text = "今天"
             } else {

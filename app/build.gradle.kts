@@ -26,6 +26,12 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            signingConfig = signingConfigs.getByName("debug") {
+                storeFile = file("/Users/sixueyang/AndroidStudioProjects/TheWeather/tw.keystore")
+                storePassword = "123456"
+                keyAlias = "key0"
+                keyPassword = "123456"
+            }
         }
     }
     compileOptions {
@@ -54,6 +60,8 @@ dependencies {
     implementation(libs.androidx.lifecycle.livedata.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.fragment.ktx)
+    implementation( libs.kotlinx.coroutines.android)
+    implementation (libs.androidx.work.runtime.ktx)
 
     implementation(libs.retrofit)
     implementation(libs.converter.gson)

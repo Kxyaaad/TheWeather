@@ -8,7 +8,7 @@ import com.kxy.theweather.ui.MainActivity.MainViewModel
 import com.kxy.theweather.ui.MainActivity.fragment.WeatherChartFragment
 
 class ChartViewPagerAdapter(fa: FragmentActivity) : FragmentStateAdapter(fa) {
-    // 获取 MainViewModel
+    // 获取 MainViewModel实例
     private val mainViewModel by lazy {
         ViewModelProvider(fa)[MainViewModel::class.java]
     }

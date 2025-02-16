@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">TheWeather</string>
+    <string name="default_place">默认位置</string>
+    <string name="no_value">/</string>
+    <string name="no_time">/:/</string>
+    <string name="network_err">网络请求错误</string>
+    <string name="retry">重试</string>
+    <string name="cancel">取消</string>
+    <string name="unknown_err">未知错误</string>
+    <string name="loading">正在加载</string>
+    <string name="no_data_type_to_retry">暂无数据，点击重试</string>
+    <string name="no_data">暂无数据</string>
+    <string name="type_to_checkout">点击查看详情</string>
+    <string name="type_day">分日</string>
+    <string name="type_hour">分时</string>
 </resources>

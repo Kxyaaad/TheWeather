@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         if (savedInstanceState == null) {
-            this.requestLocationPermission()
+//            this.requestLocationPermission()
         }
         // 实现沉浸式
         window.statusBarColor = Color.TRANSPARENT
@@ -65,6 +65,7 @@ class MainActivity : AppCompatActivity() {
         setObserver()
     }
 
+
     private fun requestLocationPermission() {
         val locationManager = this.getSystemService(Context.LOCATION_SERVICE) as LocationManager
         val gpsEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
@@ -72,7 +73,7 @@ class MainActivity : AppCompatActivity() {
 
         if (!(gpsEnabled || networkEnabled)) viewModel.requestTemp() //如果手机没有开定位，则直接请求默认位置
 
-        if (!XXPermissions.isGranted(this, Permission.ACCESS_FINE_LOCATION)) {
+        if (!XXPermissions.isGranted(this, Permission.ACCESS_COARSE_LOCATION)) {
             MessageDialog.show(
                 "请允许定位权限",
                 "如果您不授予定位权限，则默认显示成都天气"
@@ -126,8 +127,8 @@ class MainActivity : AppCompatActivity() {
         this.viewModel.dates
             .distinctUntilChanged() // 值不变，则不触发
             .observe(this) { dates ->
-                this.lastCheckOutTime = TimeUtils.getNowMills() // 记录下本次获取数据的时间
                 if (dates.isNotEmpty()) {
+                    this.lastCheckOutTime = TimeUtils.getNowMills() // 记录下本次获取数据的时间
                     this@MainActivity.viewModel.currentTemp.toString() // 获取到当前时段的温度时，更新 UI，发送通知
                         .also {
                             mViewBinding.currentTemp.text = it
@@ -209,6 +210,8 @@ class MainActivity : AppCompatActivity() {
             ) {
                 viewModel.requestTemp()
             }
+        }else {
+            this.requestLocationPermission()
         }
     }
 }

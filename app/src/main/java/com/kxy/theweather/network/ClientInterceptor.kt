@@ -32,26 +32,8 @@ class ClientInterceptor : Interceptor {
             .body(newBody)
             .build()
 
-        handleBusinessData(businessData)
         WaitDialog.dismiss()
         return newResponse
     }
 
-    private fun handleBusinessData(businessData: String) {
-        Log.e(TAG, businessData)
-        try {
-//            val data = Gson().fromJson<BaseModel<Any>>(businessData, BaseModel::class.java)
-//            if (data.code == 520) {
-//                user_id = ""
-//                access_token = ""
-//                BusUtils.post(TOKEN_UNAVAILABLE)
-//            } else if (data.code != 200) {
-//                MessageDialog.show("请求失败", data.msg)
-//            }
-
-        } catch (e: Exception) {
-            MessageDialog.show("请求错误", "请检查网络连接，${e.message}")
-        }
-
-    }
 }

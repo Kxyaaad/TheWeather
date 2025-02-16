@@ -15,8 +15,10 @@ import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.blankj.utilcode.util.TimeUtils
 import com.kxy.theweather.network.ApiService
+import com.kxy.theweather.network.OkBackGroundClient
 import com.kxy.theweather.network.OkClient
 import com.kxy.theweather.ui.MainActivity.MainViewModel
+import kotlinx.coroutines.delay
 
 class WeatherDataUpdateWorker(context: Context, params: WorkerParameters) :
     CoroutineWorker(context, params) {
@@ -35,12 +37,11 @@ class WeatherDataUpdateWorker(context: Context, params: WorkerParameters) :
 
     private fun updateData() {
         try {
-            val response = OkClient.create(ApiService::class.java)
+            val response = OkBackGroundClient.create(ApiService::class.java)
                 .getWeatherByLatLon(
                     latitude = MainViewModel.latitude,
                     longitude = MainViewModel.longitude
                 ).execute()
-            Log.e("测试后台", response.body()?.latitude.toString())
             if (response.isSuccessful) {
                 val currentTime =
                     TimeUtils.getNowString(TimeUtils.getSafeDateFormat("yyyy-MM-dd'T'HH:00"))

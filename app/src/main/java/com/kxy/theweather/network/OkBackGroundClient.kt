@@ -5,7 +5,10 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
-object TdtClient {
+/**
+ * 执行后台任务的
+ */
+object OkBackGroundClient {
     private val client = OkHttpClient.Builder()
         .connectTimeout(30, TimeUnit.SECONDS)
         .readTimeout(30, TimeUnit.SECONDS)
@@ -14,7 +17,7 @@ object TdtClient {
 
     private val retrofit = Retrofit.Builder()
         .client(client)
-        .baseUrl("http://api.tianditu.gov.cn/")
+        .baseUrl("https://api.open-meteo.com")
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
